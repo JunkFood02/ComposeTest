@@ -1,5 +1,6 @@
 package com.hustunique.composetest.ui.theme
 
+import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -15,7 +16,6 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
-
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,
@@ -29,7 +29,15 @@ val Typography = Typography(
     )
     */
 )
+
 val PingFangFamily = FontFamily(
     Font(R.font.pingfang_regular, FontWeight.Normal),
     Font(R.font.pingfang_semibold, FontWeight.SemiBold),
+    Font(R.font.pingfang_bold, FontWeight.Bold)
+
 )
+val TitleTextStyle =
+    TextStyle(fontFamily = PingFangFamily, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+
+val DateTextStyle =
+    TextStyle(fontFamily = PingFangFamily, fontWeight = FontWeight.Normal, fontSize = 12.sp)

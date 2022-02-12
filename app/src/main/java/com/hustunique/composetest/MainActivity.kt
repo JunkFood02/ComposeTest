@@ -1,31 +1,26 @@
 package com.hustunique.composetest
 
-import android.graphics.drawable.shapes.Shape
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.expandHorizontally
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.hustunique.composetest.ui.theme.ComposeTestTheme
-import com.hustunique.composetest.ui.theme.PingFangFamily
+import com.hustunique.composetest.ui.theme.DateTextStyle
+import com.hustunique.composetest.ui.theme.TitleTextStyle
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,7 +34,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    GreetingCard(getDate(), "Default Title")
+                    GreetingCard(getDate(), "菜狗 1") { makeToast() }
+
                 }
             }
         }
@@ -49,15 +45,20 @@ class MainActivity : ComponentActivity() {
         val simpleDateFormat = SimpleDateFormat("MM月dd日 E HH:mm", Locale.CHINA)
         return simpleDateFormat.format(Date())
     }
+
+    private fun makeToast() {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+    }
 }
 
 @Composable
-fun GreetingCard(date: String, title: String) {
+fun GreetingCard(date: String, title: String, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(Dp(12F))
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(Dp(12F))
     ) {
         Column() {
@@ -70,15 +71,21 @@ fun GreetingCard(date: String, title: String) {
                     .size(width = Dp.Unspecified, height = Dp(150F))
             )
             Column(
-                modifier = Modifier.padding(Dp(12F))
+                modifier = Modifier.padding(Dp(12F), Dp(9F))
             ) {
-                Text(text = "# $date",fontFamily = PingFangFamily, fontWeight = FontWeight.Normal)
-                Text(text = title,fontFamily = PingFangFamily, fontWeight = FontWeight.SemiBold)
+                Text(
+                    text = "# $date",
+                    style = DateTextStyle
+                )
+                Text(
+                    text = title,
+                    style = TitleTextStyle
+                )
             }
         }
     }
-}
 
+}
 
 @Composable
 fun Greeting(name: String) {
