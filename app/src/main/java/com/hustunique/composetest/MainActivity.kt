@@ -22,9 +22,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import com.hustunique.composetest.MainActivity.Companion.getDate
 import com.hustunique.composetest.ui.theme.ComposeTestTheme
 import com.hustunique.composetest.ui.theme.DateTextStyle
 import com.hustunique.composetest.ui.theme.TitleTextStyle
@@ -96,9 +98,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
+@Preview
 @Composable
-fun GreetingCard(date: String, title: String, resID: Int, onClick: () -> Unit) {
+fun GreetingCard(
+    date: String = getDate(),
+    title: String = "菜狗",
+    resID: Int = R.drawable.bg_romance,
+    onClick: () -> Unit = {}
+) {
     Card(
         modifier = Modifier
             .padding(12.dp)
@@ -137,10 +144,3 @@ fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeTestTheme {
-        Greeting("Android")
-    }
-}
